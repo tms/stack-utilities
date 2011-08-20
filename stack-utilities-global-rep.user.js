@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name          Global Reputation
 // @description   Inserts the user's global reputation for +200 sites
 // @include       http://stackexchange.com/users/*
