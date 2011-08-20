@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name          Global Reputation
-// @description   Inserts the user's global reputation for +200 sites
+// @name          SE Global Reputation
+// @description   Adds total reputation to global profile graph
 // @include       http://stackexchange.com/users/*
 // @author        @TimStone
 // ==/UserScript==
