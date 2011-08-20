@@ -20,7 +20,7 @@ inject(function ($) {
 			badge, title,
 			reputationTotal = 0, reputationLimited = 0, reputationCurrent;
 
-		if (!container.length || !selector.length) {
+		if (!container.length) {
 			return;
 		}
 
@@ -57,13 +57,18 @@ inject(function ($) {
 		badge.append(title);
 		badge.css({
 			'opacity': '0.75',
+			'background-color': '#FFFFFF',
+			'-moz-border-radius': '5px 5px 5px 5px',
 			'border-radius': '5px 5px 5px 5px',
-			'border': '2px solid #404040',
+			'-moz-box-shadow': '2px 2px 2px #D0D0D0',
+			'box-shadow': '2px 2px 2px #D0D0D0',
+			'border': '2px solid #707070',
 			'position': 'absolute', 
 			'top': '15px',
-			'left': '30px',
+			'left': (chart.plotLeft + 5) + 'px',
 			'font-size': '12px',
-			'padding': '5px 5px 5px 5px'
+			'padding': '5px 5px 5px 5px',
+			'z-index': '8'
 		});
 		container.append(badge);
 		
