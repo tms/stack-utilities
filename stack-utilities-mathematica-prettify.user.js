@@ -33,27 +33,27 @@ inject(function () {
 			}
 		}
 	
-		if (isMathematica) {
+		if (isMathematica && StackExchange.options.styleCode) {
 			style = document.createElement('style');
 			style.type = 'text/css';
 			style.textContent = 
 				'.lang-mathematica .com {' +
 				'  color: #777777;' +
-                '} ' +
-                '.lang-mathematica .atn {' +
-	            '  color: #080;' +
-	            '  font-style: italic;' +
-                '} ' +
-                '.lang-mathematica .str {' +
-	            '  color: #EB2AB7;' +
-                '} ' +
-                '.lang-mathematica .kwd {' +
-	            '  color: #0051FF;' +
-                '} ' +
-                '.lang-mathematica .dec {' +
-	            '  color: #000000;' +
-	            '  font-weight: bold;' +
-                '}';
+				'} ' +
+				'.lang-mathematica .atn {' +
+				'  color: #080;' +
+				'  font-style: italic;' +
+				'} ' +
+				'.lang-mathematica .str {' +
+				'  color: #EB2AB7;' +
+				'} ' +
+				'.lang-mathematica .kwd {' +
+				'  color: #0051FF;' +
+				'} ' +
+				'.lang-mathematica .dec {' +
+				'  color: #000000;' +
+				'  font-weight: bold;' +
+				'}';
 			document.getElementsByTagName('head')[0].appendChild(style);
 		
 			MathematicaHighlighter();
