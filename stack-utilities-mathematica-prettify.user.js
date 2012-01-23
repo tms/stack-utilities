@@ -21,7 +21,7 @@ function inject(f) {
 inject(function () {
 	StackExchange.ready(function () {
 		var isMathematica = /^mathematica\./.test(window.location.host),
-			tags, i, blocks, style;
+			tags, i;
 
 		if (!isMathematica) {
 			tags = document.getElementsByClassName('post-tag');
@@ -34,38 +34,41 @@ inject(function () {
 		}
 	
 		if (isMathematica && StackExchange.options.styleCode) {
-			style = document.createElement('style');
-			style.type = 'text/css';
-			style.textContent = 
-				'.lang-mathematica .com {' +
-				'  color: #777777;' +
-				'} ' +
-				'.lang-mathematica .atn {' +
-				'  color: #080;' +
-				'  font-style: italic;' +
-				'} ' +
-				'.lang-mathematica .str {' +
-				'  color: #EB2AB7;' +
-				'} ' +
-				'.lang-mathematica .kwd {' +
-				'  color: #0051FF;' +
-				'} ' +
-				'.lang-mathematica .dec {' +
-				'  color: #000000;' +
-				'  font-weight: bold;' +
-				'}';
-			document.getElementsByTagName('head')[0].appendChild(style);
-		
-			MathematicaHighlighter();
+			StackExchange.using("prettify", function () {
+				var style = document.createElement('style'), blocks;
+				
+				style.type = 'text/css';
+				style.textContent = 
+					'.lang-mathematica .com {' +
+					'  color: #777777;' +
+					'} ' +
+					'.lang-mathematica .atn {' +
+					'  color: #080;' +
+					'  font-style: italic;' +
+					'} ' +
+					'.lang-mathematica .str {' +
+					'  color: #EB2AB7;' +
+					'} ' +
+					'.lang-mathematica .kwd {' +
+					'  color: #0051FF;' +
+					'} ' +
+					'.lang-mathematica .dec {' +
+					'  color: #000000;' +
+					'  font-weight: bold;' +
+					'}';
+				document.getElementsByTagName('head')[0].appendChild(style);
 			
-			document.getElementById('prettify-lang').textContent = 'lang-mathematica';
-			blocks = document.getElementsByClassName('prettyprint');
-			
-			for (i = 0; i < blocks.length; ++i) {
-				blocks[i].className = 'prettyprint lang-mathematica';
-			}
-			
-			StackExchange.prettify.applyCodeStyling();
+				MathematicaHighlighter();
+				
+				document.getElementById('prettify-lang').textContent = 'lang-mathematica';
+				blocks = document.getElementsByClassName('prettyprint');
+				
+				for (i = 0; i < blocks.length; ++i) {
+					blocks[i].className = 'prettyprint lang-mathematica';
+				}
+				
+				StackExchange.prettify.applyCodeStyling();
+			});
 		}
 	});
 
