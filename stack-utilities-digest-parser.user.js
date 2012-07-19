@@ -135,6 +135,8 @@ inject(function ($) {
                 if (link) {
                     element.appendChild(link);
                 }
+            } else if (first.classList.contains('mention')) {
+                element.removeChild(first);
             }
 
             for (var i = element.children.length - 1; i >= 0; --i) {
