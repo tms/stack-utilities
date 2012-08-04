@@ -17,8 +17,8 @@ inject(function ($) {
 	$(document).ready(function () {
 		var container = $('#reputation-container'),
 			selector = $('input[name="reputation-accounts"]'),
-			badge, title,
-			reputationTotal = 0, reputationLimited = 0, reputationCurrent;
+            day = 24 * 60 * 60 * 1000,
+			badge, title;
 
 		if (!container.length) {
 			return;
@@ -27,10 +27,32 @@ inject(function ($) {
 		if (!chart || !chart.series || !chart.series.length) {
 			return;
 		}
+        
+        var calculateTotal = true,
+            plots = [], offset, series, currentDate, minimumDate,
+            reputationTotal = 0, reputationLimited = 0, reputationCurrent;
 
 		for (var i = 0; i < chart.series.length; ++i) {
 			if (chart.series[i]) {
 				reputationCurrent = chart.series[i].data;
+                
+                if (calculateTotal) {
+                    currentDate = reputationCurrent[0].x;
+                    offset = minimumDate ? daysBefore(minimumDate, currentDate) : 0;
+                
+                    for (var j = 0; j < reputationCurrent.length; ++j) {
+                        if (offset + j < 0) {
+                            plots.unshift(reputationCurrent[j].y);
+                        } else if (offset > -1 || !(offset = 0)) {
+                            plots[offset + j] = (plots[offset + j] || 0) + reputationCurrent[j].y;
+                        }
+                    }
+                
+                    if (!minimumDate || currentDate < minimumDate) {
+                        minimumDate = currentDate;
+                    }
+                }
+                
 				reputationCurrent =
 						reputationCurrent[reputationCurrent.length - 1].config;
 
@@ -41,6 +63,37 @@ inject(function ($) {
 				reputationTotal += reputationCurrent;
 			}
 		}
+        
+        if (calculateTotal && plots.length) {
+            series = chart.addSeries({
+                name: 'Network Total',
+                pointInterval: day,
+                pointStart: minimumDate,
+                data: plots,
+                visible: showNetworkTotal(),
+                events: {
+                    legendItemClick: function () {
+                        showNetworkTotal(!series.visible);
+                    }
+                }
+            });
+            
+            $(chart).off('redraw').on('redraw', redraw);
+            
+            series._hide = series.hide;
+            series._show = series.show;
+            
+            series.hide = function () {
+                if (!$('.reputation-loader').length) {
+                    series._hide();
+                }
+            };
+            series.show = function () {
+                if (!$('.reputation-loader').length) {
+                    series._show();
+                }
+            }
+        }
 		
 		title = document.createElement('span');
 		title = $(title);
@@ -76,6 +129,7 @@ inject(function ($) {
 		badge = badge.children('*:last');
 		
 		selector.change(change);
+        redraw();
 		change();
 		
 		function change () {
@@ -87,6 +141,32 @@ inject(function ($) {
 					+ format(limited) + " shown");
 			badge.find('strong').css('color', '#1E4F93');
 		}
+        
+        function redraw() {
+            var visible = 0, topFive = false;
+        
+            for (var i = 0; i < chart.series.length - 1; ++i) {
+                if (!topFive && !chart.series[i].visible) {
+                    break;
+                }
+            
+                if (chart.series[i].visible) {
+                    ++visible;
+                }
+                
+                if (i === 4) {
+                    topFive = true;
+                }
+            }
+            
+            if (topFive && visible === 5) {
+                selector.filter('#top-accounts').prop('checked', true);
+            } else if (visible === chart.series.length - 1) {
+                selector.filter('#all-accounts').prop('checked', true);
+            } else {
+                selector.prop('checked', false);
+            }
+        }
 		
 		function format(number) {
 			var current, formatted = '';
@@ -105,5 +185,17 @@ inject(function ($) {
 			
 			return '<strong>' + formatted + '</strong>';
 		}
+        
+        function daysBefore(previous, current) {
+            return (current - previous) / day;
+        }
+        
+        function showNetworkTotal(show) {
+            if (typeof show !== 'undefined') {
+                localStorage['us-display-network-graph'] = show;
+            }
+            
+            return localStorage['us-display-network-graph'] == 'true';
+        }
 	});
 });
