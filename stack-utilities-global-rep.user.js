@@ -42,7 +42,7 @@ inject(function ($) {
                 
                     for (var j = 0; j < reputationCurrent.length; ++j) {
                         if (offset + j < 0) {
-                            plots.unshift(reputationCurrent[-offset - j].y);
+                            plots.unshift(reputationCurrent[(-offset - j) - 1].y);
                         } else if (offset > -1 || !(offset = 0)) {
                             plots[offset + j] = (plots[offset + j] || 0) + reputationCurrent[j].y;
                         }
