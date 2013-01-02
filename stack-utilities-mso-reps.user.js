@@ -150,7 +150,7 @@ inject(function ($) {
     })()).trigger('click');
     
     Object.keys(cache).forEach(function (key) {
-        if (cache[key] < Date.now() - cacheExpiration) {
+        if (cache[key].updated < Date.now() - cacheExpiration) {
             delete cache[key];
         }
     });
@@ -165,12 +165,12 @@ inject(function ($) {
         };
     
         $.get('https://api.stackexchange.com/2.1/users/' + user + '?site=meta.stackoverflow&filter=' + userFilter, function (response) {
-            if (!response.items || !response.items.length) {
+            if (!(response = cleanResponse(response))) {
                 return callback(reputation);
             }
             
-            $.get('https://api.stackexchange.com/2.1/users/' + response.items[0].account_id + '/associated?filter=' + accountFilter, function (response) {
-                if (!response.items || !response.items.length) {
+            $.get('https://api.stackexchange.com/2.1/users/' + response.items[0].account_id + '/associated?pagesize=100&filter=' + accountFilter, function (response) {
+                if (!(response = cleanResponse(response))) {
                     return callback(reputation);
                 }
                 
@@ -193,6 +193,15 @@ inject(function ($) {
                 callback(reputation);
             });
         });
+    }
+    
+    function cleanResponse(response) {
+        // Go home Firefox you are drunk
+        if (typeof(response) === 'string') {
+            response = JSON.parse(response);
+        }
+        
+        return !response.items || !response.items.length ? false : response;
     }
     
     function repNumber(a) {
