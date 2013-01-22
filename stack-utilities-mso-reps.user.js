@@ -46,6 +46,7 @@ inject(function ($) {
             'margin-right: 6px;' +
             'cursor: pointer;' +
         '}',
+        apiKey = 'NcxAQF0apwduF8cqRPUjzQ((',
         userFilter = '!6XcKLmWTZRdly',
         accountFilter = '!*M6jb6HDGrkQMXWA',
         cacheName = 'us-mso-reps-cache',
@@ -164,12 +165,12 @@ inject(function ($) {
             updated: 0
         };
     
-        $.get('https://api.stackexchange.com/2.1/users/' + user + '?site=meta.stackoverflow&filter=' + userFilter, function (response) {
+        $.get('https://api.stackexchange.com/2.1/users/' + user + '?site=meta.stackoverflow&filter=' + userFilter + '&key=' + apiKey, function (response) {
             if (!(response = cleanResponse(response))) {
                 return callback(reputation);
             }
             
-            $.get('https://api.stackexchange.com/2.1/users/' + response.items[0].account_id + '/associated?pagesize=100&filter=' + accountFilter, function (response) {
+            $.get('https://api.stackexchange.com/2.1/users/' + response.items[0].account_id + '/associated?pagesize=100&filter=' + accountFilter + '&key=' + apiKey, function (response) {
                 if (!(response = cleanResponse(response))) {
                     return callback(reputation);
                 }
@@ -181,7 +182,7 @@ inject(function ($) {
                     
                     reputation.total += account.reputation;
                     
-                    if (account.user_type === 'moderator' && account.site_name !== 'Meta Stack Overflow') {
+                    if (account.user_type === 'moderator' && account.site_name !== 'Meta Stack Overflow' && account.site_name !== 'Stack Overflow') {
                         reputation.isModerator = true;
                     }
                     
