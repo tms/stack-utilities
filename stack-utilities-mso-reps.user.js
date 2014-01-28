@@ -33,10 +33,10 @@ inject(function ($) {
             'padding-right: 20px' +
         '}' +
         '.us-rep-block.se > span:first-child {' +
-            'background-image: url("http://cdn.sstatic.net/stackexchange/img/favicon.ico");' +
+            'background-image: url("//cdn.sstatic.net/stackexchange/img/favicon.ico");' +
         '}' +
         '.us-rep-block.so > span:first-child {' +
-            'background-image: url("http://cdn.sstatic.net/stackoverflow/img/favicon.ico");' +
+            'background-image: url("//cdn.sstatic.net/stackoverflow/img/icon-16.png");' +
         '}' +
         '.us-rep-block-switch {' +
             'background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMS8wMi8xMikcdKwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABQElEQVQokY3SvWtTARTG4SeppMWp+IHQUV0sZPEf0EFcJDo6uFW4h5rBQQsFXQV3cTgO4uTmIERQpNjBOVsRocExYEAQikgIXpcbuL2Etu/8/s57vlplWaorIk7jFs5jBT/wOTMP6r52A9rGd9zBhQq8jU8Rcb/ubZVlKSI6SCxjMzN/NwpexjP8wqPM/DNPfFhBRROCzNzPzLs4g3v1Vq/jcXOOBXqBaxGx2mou5yj1+/33s9lsDX+XxuPxqcFgsNzr9WbHgaPR6OxkMlnLzButoih0Op3dbrf7vCiKjydNb2N3Op22h8Ph0xP3XIGbmJRl+eA4c0SsR8QHaGfmN3zBk4hYOQI6h5d4N0+EN/iJjIhLC6AreIWvmfma6nNqhg1sYQ/7+IerWMd2Zr6dexfeMSJu4iKWqgI7mXnoXP8Bx3Z6GnFNW4UAAAAASUVORK5CYII=") no-repeat scroll right center;' +
