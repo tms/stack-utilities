@@ -16,8 +16,8 @@ function inject(f) {
 inject(function ($) {
     var styles =
         '.us-rep-block {' +
-            'padding-left: 41px;' +
-            'margin-top: -3px;' +
+            'padding-left: 47px;' +
+            'margin-top: -6px;' +
             'margin-bottom: 6px;' +
         '}' +
         '.us-rep-block .mod {' +
@@ -46,7 +46,7 @@ inject(function ($) {
         cacheName = 'us-mso-reps-cache',
         cacheExpiration = 30 * 60 * 1000;
         
-    var owner = $('.post-signature.owner');
+    var owner = $('#question .post-signature.owner');
     
     if (!owner.length) {
         return;
