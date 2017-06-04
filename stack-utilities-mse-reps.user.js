@@ -2,7 +2,7 @@
 // @name           MSE Reputation Helper
 // @description    Shows reputation of the user on the Stack Exchange Network
 // @author         Tim Stone
-// @match          http://meta.stackexchange.com/questions/*
+// @match          https://meta.stackexchange.com/questions/*
 // ==/UserScript==
 
 function inject(f) {
