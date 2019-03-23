@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          SE Global Reputation
 // @description   Adds total reputation to global profile graph
-// @include       http://stackexchange.com/users/*
+// @include       https://stackexchange.com/users/*
 // @author        @TimStone
 // ==/UserScript==
 
